@@ -1,3 +1,9 @@
+import pandas as pd
+import numpy as np
+import urllib
+
+dir(urllib)
+
 print("hey"*10)
 print([1, 2, 3] * 4)
 
@@ -162,17 +168,196 @@ for number in numbers:
     print(number)
 
 # Modify this function to return a list of strings as defined above
+
+
 def list_benefits():
-    return ["More organized code","More readable code","Easier code reuse","Allowing programmers to share and connect code together"]
+    return ["More organized code", "More readable code", "Easier code reuse", "Allowing programmers to share and connect code together"]
 
 # Modify this function to concatenate to each benefit - " is a benefit of functions!"
+
+
 def build_sentence(benefit):
     return benefit + " is a benefit of functions"
+
 
 def name_the_benefits_of_functions():
     list_of_benefits = list_benefits()
     for benefit in list_of_benefits:
         print(build_sentence(benefit))
 
+
 name_the_benefits_of_functions()
 
+# class
+
+
+class Sports():
+    def __init__(self, type, name) -> None:
+        self.type = type
+        self.name = name
+
+    def play(self):
+        pass
+
+
+cricket = Sports("outdoor", "Cricket")
+print(cricket.type)
+print(cricket.name)
+
+# We have a class defined for vehicles. Create two new vehicles called car1 and car2. Set car1 to be a red convertible worth $60,000.00 with a name of Fer,
+#  and car2 to be a blue van named Jump worth $10,000.00.
+
+# define the Vehicle class
+
+
+class Vehicle:
+    name = ""
+    kind = "car"
+    color = ""
+    value = 100.00
+
+    def description(self):
+        desc_str = f"{self.name} is a {self.color} {self.kind} worth ${float(self.value)}"
+        # desc_str = "%s is a %s %s worth $%.2f." % (self.name, self.color, self.kind, self.value)
+        return desc_str
+
+
+# your code goes here
+car1 = Vehicle()
+car2 = Vehicle()
+car1.name = "Fer"
+car1.color = "red"
+car1.kind = "convertible"
+car1.value = 60000
+car2.name = "Jump"
+car2.color = "blue"
+car1.kind = "van"
+car2.value = 10000
+# test code
+print(car1.description())
+print(car2.description())
+
+# Dictionaries are very similar to object which has key value pairs and any type of data can be stored in it
+
+player_dict = {
+    "name": "Beckham",
+    "age": 40,
+    "position": "Midfielder"
+}
+
+for key in player_dict:
+    print(player_dict[key])
+
+for x in player_dict.keys():
+    print(x)
+
+for v in player_dict.values():
+    print(v)
+
+for x, y in player_dict.items():
+    print(x, y)
+
+# removing a specified element
+
+del player_dict["position"]
+
+print(player_dict)
+
+# or pop method
+player_dict.pop("age")
+
+print(player_dict)
+
+print("--------")
+# Add "Jake" to the phonebook with the phone number 938273443, and remove Jill from the phonebook.
+phonebook = {
+    "John": 938477566,
+    "Jack": 938377264,
+    "Jill": 947662781
+}
+# your code goes here
+# add Jake
+phonebook["Jake"] = 938273443
+# remove Jill
+phonebook.pop("Jill")
+
+# testing code
+if "Jake" in phonebook:
+    print("Jake is listed in the phonebook.")
+
+if "Jill" not in phonebook:
+    print("Jill is not listed in the phonebook.")
+
+print(phonebook)
+
+# numpy arrays
+
+height = [1.82,  1.87, 1.82, 1.91, 1.90, 1.85]
+weight = [81.65, 97.52, 95.25, 92.98, 86.18, 88.45]
+
+
+np_weight = np.array(weight)
+np_height = np.array(height)
+
+print(np_weight)
+print(np_height)
+print(type(np_height))
+
+bmi_index = np_weight / (np_height ** 2)
+print(bmi_index)
+print(bmi_index[bmi_index < 25])
+
+# Exercise
+# First, convert the list of weights from a list to a Numpy array. Then, convert all of the weights from kilograms to pounds.
+# Use the scalar conversion of 2.2 lbs per kilogram to make your conversion. Lastly, print the resulting array of weights in pounds.
+
+weight_kg = [81.65, 97.52, 95.25, 92.98, 86.18, 88.45]
+
+# Create a numpy array np_weight_kg from weight_kg
+np_weight_kg = np.array(weight_kg)
+
+# Create np_weight_lbs from np_weight_kg
+
+np_weight_lbs = np_weight_kg * 2.2
+
+# Print out np_weight_lbs
+print(np_weight_lbs)
+print(type(np_weight_lbs))
+
+# Pandas
+
+dict = {"country": ["Brazil", "Russia", "India", "China", "South Africa"],
+        "capital": ["Brasilia", "Moscow", "New Dehli", "Beijing", "Pretoria"],
+        "area": [8.516, 17.10, 3.286, 9.597, 1.221],
+        "population": [200.4, 143.5, 1252, 1357, 52.98]}
+
+brics = pd.DataFrame(dict)
+brics.index = ["BR", "RU", "IN", "CH", "SA"]
+print(brics)
+
+stats = pd.read_csv("./PL-Stats.csv")
+print(stats)
+
+# Print out name column as Pandas Series
+print(stats["full_name"])
+# Print out name column as Pandas dataframe
+print(stats[["full_name"]])
+# Print out name column and goals as Pandas dataframe
+print(stats[["full_name", "goals_overall"]])
+
+# Print out first 4 observations
+print(stats[0:4])
+
+# Print out fifth and sixth observation
+print(stats[4:6])
+
+# You can also use loc and iloc to perform just about any data selection operation. loc is label-based,
+#  which means that you have to specify rows and columns based on their row and column labels.
+# iloc is integer index based, so you have to specify rows and columns by their integer index
+
+# label based
+print("LOC")
+print(stats.loc[[]])
+# iloc integer index based
+print("ILOC")
+print(stats.iloc[12])
