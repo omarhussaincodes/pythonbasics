@@ -7,6 +7,10 @@
 # individual arguments (unpack the list).  Save the result to a variable called result2 .
 
 # NO TOUCHING! =================================================================
+import inspect
+from functools import partial
+
+
 def count_sevens(*args):
     # it is of type tuple which it unpacks if the function call argument is appended with *
     print(args)
@@ -43,6 +47,7 @@ print("result2: ", result2)
 calculate(make_float=False, operation='add', message='You just added', first=2, second=4) # "You just added 6"
 calculate(make_float=True, operation='divide', first=3.5, second=5) # "The result is 0.7"
 '''
+
 
 def calculate(**kargs):
     print(kargs.get("operation"))
@@ -86,3 +91,102 @@ def calculate(**kwargs):
     else:
         final = f"{kwargs.get('message','The result is')} {int(operation_value)}"
     return final
+
+
+# Partial Function :- Partial functions allows us to fix certain number of args of function and
+# generate a new function
+
+def addition(a, b, c):
+    return 100 * a + b * 10 + c
+
+
+# here 2 args of functions are fixed - very handy when dealing and using 3rd party libraries and functions
+addition_partial = partial(addition, c=5, b=2)
+# where if we wan to tweak in the args of existing functions and deriving our own partial functions out of it
+print(addition_partial(3))
+
+
+# Edit the function provided by calling partial() and replacing the first three variables in func().
+# Then print with the new partial function using only one input variable so that the output equals 60.
+# Following is the exercise, function provided:
+
+
+def func(u, v, w, x):
+    return u*4 + v*3 + w*2 + x
+
+
+# Enter your code here to create and print with your partial function
+mul_partial = partial(func, 5, 6, 7)
+print(mul_partial(60))
+
+# Dunder Methods:
+# _name - declaring private variables in class
+# __name -- leads to name mangling - attribute error since it's used under the hood it associates it with
+# particular class to avoid confusion/name conflicts when Inheritance is implemneted
+# __name__ - python specific methods like __init__, __len__ etc
+
+# Closures
+# A Closure is a function object that remembers values in enclosing scopes even if they are not present in memory
+# Python closure is a nested function that allows us to access variables of the outer function even after the outer function is closed.
+
+
+def transmit_to_space(message, num):
+    print("This is the enclosing function")
+
+    def data_transmitter():
+        print("The nested function")
+        num = 5
+        print(message, num)
+        return (message, num)
+    print(num)
+    return data_transmitter()
+
+
+print(transmit_to_space("Test message", 10))
+
+
+def print_msg(number):
+    def printer():
+        print("Here we are using the nonlocal keyword")
+        nonlocal number
+        number = 3
+        print(number)
+    printer()
+    print(number)
+
+
+print_msg(9)
+
+
+def greet():
+    # variable defined outside the inner function
+    name = "John"
+
+    # return a nested anonymous function
+    return lambda: "Hi " + name
+
+
+# call the outer function
+message = greet()
+
+# call the inner function
+print(message())
+
+# Output: Hi John
+
+print(inspect.getmembers(greet()))
+
+# Make a nested loop and a python closure to make functions to get multiple multiplication functions using closures.
+# That is using closures, one could make functions to create multiply_with_5() or multiply_with_4() functions using closures.
+
+# outer function
+def multiplier_of(n):
+    # inner function
+    def multiplier(number):
+        return number * n
+
+    return multiplier
+
+
+multiplywith5 = multiplier_of(5)
+print(multiplywith5(9))
