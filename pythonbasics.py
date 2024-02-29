@@ -11,7 +11,7 @@ x = object()
 y = object()
 
 # TODO: change this code
-x_list = [x] * 10
+x_list = [x] * 100
 y_list = [y] * 10
 big_list = (list(x_list) + list(y_list)) * 10
 
